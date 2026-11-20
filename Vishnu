@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roshni AI Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#10101c;color:white;font-family:Arial,sans-serif}
+header{padding:20px;background:#1b1b2d;color:#c5a2ff;font-size:24px;font-weight:bold}
+main{max-width:750px;margin:auto;padding:20px}
+.card{background:#1d1d30;padding:20px;border-radius:16px;margin:20px 0}
+h1{font-size:29px}
+p{color:#bdbdcc;line-height:1.6}
+label{display:block;margin:16px 0 8px}
+textarea,select{width:100%;padding:14px;background:#10101c;color:white;border:1px solid #555;border-radius:9px;font-size:15px}
+textarea{height:120px}
+button{background:#925be8;color:white;border:0;border-radius:9px;padding:13px;margin-top:15px;font-size:15px;font-weight:bold;cursor:pointer}
+.full{width:100%}
+#result{white-space:pre-wrap;line-height:1.7;color:#e0d0ff}
+footer{text-align:center;padding:25px;color:#aaa}
+</style>
+</head>
+<body>
+
+<header>✨ Roshni AI Studio</header>
+
+<main>
+<h1>Create Your AI Video 🎬</h1>
+<p>अपनी कहानी लिखें और अपना AI Video Prompt बनाएँ।</p>
+
+<div class="card">
+<h2>🎥 Video Generator</h2>
+
+<label>अपनी कहानी लिखें</label>
+<textarea id="story" placeholder="यहाँ अपनी कहानी लिखें..."></textarea>
+
+<label>Video Category</label>
+<select id="category">
+<option>Horror Story</option>
+<option>Cartoon Animation</option>
+<option>Anime Video</option>
+<option>Love Story</option>
+<option>Devotional Video</option>
+<option>Motivational Story</option>
+</select>
+
+<label>Video Format</label>
+<select id="format">
+<option>16:9 YouTube</option>
+<option>9:16 YouTube Shorts</option>
+<option>1:1 Square</option>
+</select>
+
+<label>Video Duration</label>
+<select id="duration">
+<option>30 Seconds</option>
+<option>1 Minute</option>
+<option>2 Minutes</option>
+<option>5 Minutes</option>
+<option>10 Minutes</option>
+</select>
+
+<label>Voice</label>
+<select id="voice">
+<option>Hindi Female Voice</option>
+<option>Hindi Male Voice</option>
+<option>English Female Voice</option>
+<option>English Male Voice</option>
+</select>
+
+<button class="full" onclick="generate()">✨ Generate Prompt</button>
+</div>
+
+<div class="card">
+<h2>🪄 Your Video Prompt</h2>
+<div id="result">आपका Prompt यहाँ आएगा।</div>
+<button onclick="copyText()">📋 Copy Prompt</button>
+<button onclick="downloadText()">⬇ Download</button>
+</div>
+
+<div class="card">
+<h2>🚀 Coming Soon</h2>
+<p>🖼️ AI Image Generator</p>
+<p>🎙️ AI Voice Generator</p>
+<p>🎵 AI Music Generator</p>
+<p>🎬 AI Video Generator</p>
+</div>
+</main>
+
+<footer>Made with ❤️ Roshni AI Studio</footer>
+
+<script>
+function generate(){
+let story=document.getElementById("story").value.trim();
+if(!story){alert("पहले कहानी लिखें!");return;}
+
+let category=document.getElementById("category").value;
+let format=document.getElementById("format").value;
+let duration=document.getElementById("duration").value;
+let voice=document.getElementById("voice").value;
+
+let prompt=`Create a professional ${category} video.
+
+Story: ${story}
+
+Format: ${format}
+Duration: ${duration}
+Voice: ${voice}
+
+Add cinematic camera movements, professional lighting, background music, sound effects and engaging storytelling.`;
+
+document.getElementById("result").textContent=prompt;
+}
+
+function copyText(){
+let text=document.getElementById("result").textContent;
+if(text==="आपका Prompt यहाँ आएगा।")return;
+navigator.clipboard.writeText(text)
+.then(()=>alert("Prompt copied!"))
+.catch(()=>alert("Copy नहीं हुआ, कृपया टेक्स्ट चुनकर कॉपी करें।"));
+}
+
+function downloadText(){
+let text=document.getElementById("result").textContent;
+if(text==="आपका Prompt यहाँ आएगा।")return;
+let blob=new Blob([text],{type:"text/plain"});
+let a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="Roshni-AI-Prompt.txt";
+a.click();
+URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
